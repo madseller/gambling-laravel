@@ -7,20 +7,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
-class ProcessNotification implements ShouldQueue
+class ProcessBet implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $userId;
+    protected $bet;
 
-    public function __construct($userId)
+    public function __construct($bet)
     {
-        $this->userId = $userId;
+        $this->bet = $bet;
     }
 
     public function handle()
     {
-        \Log::info("Отправляем уведомление пользователю {$this->userId}");
+        Log::info("Processing bet: {$this->bet->id}");
+        // Some logic here
     }
 }
